@@ -41,14 +41,15 @@ X는 코딩테스트 점수를 의미하며 조건을 만족하는 사람 중 X�
 각 단어는 공백문자(스페이스 바) 하나로 구분되어 있습니다.
 예를 들면, cpp and - and senior and pizza 500은 cpp로 코딩테스트를 봤으며, 경력은 senior 이면서 소울푸드로 pizza를 선택한 지원자 중 코딩테스트 점수를 500점 이상 받은 사람은 모두 몇 명인가?를 의미합니다.
 """
+import collections
 
 
 # language, job, experience, food, score
-def info_to_list(info):
-    infos = []
+def info_to_dict(info):
+    infos = collections.defaultdict(list)
     for person in info:
         info_list = person.split()
-        infos.append(info_list)
+        infos[int(info_list[4])].append(info_list[:4])
     return infos
 
 
@@ -56,33 +57,38 @@ def query_to_list(query):
     queries = []
     for q in query:
         q = q.split()
-        queries.append([q[0] , q[2] , q[4] , q[6], q[7]])
+        queries.append([q[0], q[2], q[4], q[6], int(q[7])])
     return queries
 
 
 def count_match(infos, query):
     count = 0
     for info in infos:
-        match = True
-        for i in range(4):
-            if query[i] == '-':
-                continue
-            if query[i] != info[i]:
-                match = False
-                break
-        if match:
+        if info < query[4]:
+            continue
 
-            if query[4] == '-' or int(query[4]) <= int(info[4]):
+        for item in infos[info]:
+            match = True
+            for i in range(4):
+                if query[i] == '-':
+                    continue
+                if query[i] != item[i]:
+                    match = False
+                    break
+            if match:
                 count += 1
     return count
 
 
 def solution(info, query):
     answer = []
-    infos = info_to_list(info)
+    infos = info_to_dict(info)
     queries = query_to_list(query)
-    for q in queries:
-        answer.append(count_match(infos, q))
+    for query in queries:
+        answer.append(count_match(infos, query))
     return answer
+
+# better solution
+
 
 print(solution(["java backend junior pizza 150","python frontend senior chicken 210","python frontend senior chicken 150","cpp backend senior pizza 260","java backend junior chicken 80","python backend senior chicken 50"],["java and backend and junior and pizza 100","python and frontend and senior and chicken 200","cpp and - and senior and pizza 250","- and backend and senior and - 150","- and - and - and chicken 100","- and - and - and - 150"]))
