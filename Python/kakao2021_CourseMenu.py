@@ -19,7 +19,7 @@ import collections
 import itertools
 
 
-def solution(orders, course):
+def solution1(orders, course):
     answer = []
     menus = set()
     order_dic = collections.defaultdict(set)
@@ -27,7 +27,7 @@ def solution(orders, course):
         for c in orders[i]:
             menus.add(c)
             order_dic[(c, )].add(i)
-    menus = list(menus)
+    menus = sorted(list(menus))
     for j in range(2, max(course) + 1):
         keys = itertools.combinations(menus, j)
         for key in keys:
@@ -55,9 +55,21 @@ def solution(orders, course):
             ans_dic[len(key)] = [len(order_dic[key]), key]
     for value in ans_dic.values():
         for i in range(1, len(value)):
-            answer.append(''.join(sorted(list(value[i]))))
+            answer.append(''.join(list(value[i])))
     answer.sort()
     return answer
 
 
-solution(["ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"], [2, 3, 5])
+def solution2(orders, course):
+    result = []
+    sorted_orders = []
+    for order in orders:
+        sorted_orders.append(sorted(order))
+    for course_size in course:
+        order_combination = []
+        for order in sorted_orders:
+            order_combination += (itertools.combinations(order, course_size))
+        most_ordered = collections.Counter(order_combination).most_common()
+        result += [key for key, value in most_ordered if value > 1 and value == most_ordered[0][1]]
+    return [''.join(v) for v in sorted(result)]
+solution2(["ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"], [2, 3, 5])
