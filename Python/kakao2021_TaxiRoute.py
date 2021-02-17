@@ -23,7 +23,7 @@ import heapq
 
 
 def solution(n, s, a, b, fares):
-    answer = 0
+    answer = float("inf")
     graph = collections.defaultdict(list)
 
     # initialize graph
@@ -35,15 +35,29 @@ def solution(n, s, a, b, fares):
     v_weights = collections.defaultdict(lambda: float("inf"))
     v_weights[s] = 0
 
-    queue = heapq((0, s))
+    queue = [(0, s)]
     while queue:
-        
+        cur_cost, cur_v = heapq.heappop(queue)
+        for cost, next_v in graph[cur_v]:
+            if cur_cost + cost < v_weights[next_v]:
+                v_weights[next_v] = cur_cost + cost
+                heapq.heappush(queue, (v_weights[next_v], next_v))
+    print(v_weights)
 
     # calculate the sum of costs to A, B for each vertex
     def calc_cost(v_s, v_a, v_b):
-
-        return v_weights[v_s]
-
+        temp_weights = collections.defaultdict(lambda: float("inf"))
+        temp_weights[v_s] = 0
+        temp_queue = [(0, v_s)]
+        while temp_queue:
+            temp_cur_cost, temp_cur = heapq.heappop(temp_queue)
+            for next_cost, temp_next in graph[temp_cur]:
+                if temp_cur_cost + next_cost <  temp_weights[temp_next]:
+                    temp_weights[temp_next] = temp_cur_cost + next_cost
+                    heapq.heappush(temp_queue, (temp_weights[temp_next], temp_next))
+        return v_weights[v_s] + temp_weights[v_a] + temp_weights[v_b]
+    for i in range(1, n + 1):
+        answer = min(calc_cost(i, a, b), answer)
     return answer
 
 
