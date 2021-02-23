@@ -1,2 +1,2 @@
-d = [[201 for _ in range(2)] for _ in range(3)]
+d = [0] * 3
 print(d)
