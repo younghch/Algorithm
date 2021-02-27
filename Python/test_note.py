@@ -1,2 +1,3 @@
-d = [0] * 3
-print(d)
+a = "bhcidaefg"
+b = sorted(a)
+print(b)
