@@ -1,3 +1,5 @@
-a = "bhcidaefg"
-b = sorted(a)
-print(b)
+import collections
+
+stack = []
+while stack:
+    print("hi")
