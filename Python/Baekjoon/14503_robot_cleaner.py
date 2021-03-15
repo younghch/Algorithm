@@ -27,7 +27,7 @@ room = []
 for i in range(row):
     room.append(list(map(int, sys.stdin.readline().split())))
 
-ans = 0
+ans = 1
 
 room[x][y] = clean
 rot_count = 0
@@ -40,33 +40,10 @@ def ft_print(room):
 
 
 while True:
-    direction = (direction - 1) % 4
+
+    # if all clean or wall
     if rot_count == 4:
-        if x - 1 > -1 and direction == north:
-            if room[x - 1][y] != wall:
-                if room[x][y] != clean:
-                    room[x][y] = clean
-                    ans += 1
-                x -= 1
-                rot_count = 0
-            else:
-                if room[x][y] != clean:
-                    room[x][y] = clean
-                    ans += 1
-                break
-        elif y - 1 > -1 and direction == west:
-            if room[x][y - 1] != wall:
-                if room[x][y] != clean:
-                    room[x][y] = clean
-                    ans += 1
-                y -= 1
-                rot_count = 0
-            else:
-                if room[x][y] != clean:
-                    room[x][y] = clean
-                    ans += 1
-                break
-        elif x + 1 < row and direction == south:
+        if x + 1 < row and direction == north:
             if room[x + 1][y] != wall:
                 if room[x][y] != clean:
                     room[x][y] = clean
@@ -78,7 +55,7 @@ while True:
                     room[x][y] = clean
                     ans += 1
                 break
-        elif y + 1 < col and direction == east:
+        elif y + 1 < col and direction == west:
             if room[x][y + 1] != wall:
                 if room[x][y] != clean:
                     room[x][y] = clean
@@ -90,40 +67,76 @@ while True:
                     room[x][y] = clean
                     ans += 1
                 break
+        elif x - 1 > -1 and direction == south:
+            if room[x - 1][y] != wall:
+                if room[x][y] != clean:
+                    room[x][y] = clean
+                    ans += 1
+                x -= 1
+                rot_count = 0
+            else:
+                if room[x][y] != clean:
+                    room[x][y] = clean
+                    ans += 1
+                break
+        elif y - 1 > -1 and direction == east:
+            if room[x][y - 1] != wall:
+                if room[x][y] != clean:
+                    room[x][y] = clean
+                    ans += 1
+                y -= 1
+                rot_count = 0
+            else:
+                if room[x][y] != clean:
+                    room[x][y] = clean
+                    ans += 1
+                break
+        else:
+            if room[x][y] != clean:
+                room[x][y] = clean
+                ans += 1
+            break
+
+    # check direction and clean
+    direction = (direction - 1) % 4
     if x-1 > -1 and direction == north:
         if room[x-1][y] == dirty:
-            room[x][y] = clean
+            if room[x][y] != clean:
+                room[x][y] = clean
+                ans += 1
             x -= 1
-            ans += 1
             rot_count = 0
-            ft_print(room)
+            # ft_print(room)
         else:
             rot_count += 1
     elif y-1 > -1 and direction == west:
         if room[x][y - 1] == dirty:
-            room[x][y] = clean
+            if room[x][y] != clean:
+                room[x][y] = clean
+                ans += 1
             y -= 1
-            ans += 1
             rot_count = 0
-            ft_print(room)
+            # ft_print(room)
         else:
             rot_count += 1
     elif x+1 < row and direction == south:
         if room[x+1][y] == dirty:
-            room[x][y] = clean
+            if room[x][y] != clean:
+                room[x][y] = clean
+                ans += 1
             x += 1
-            ans += 1
             rot_count = 0
-            ft_print(room)
+            # ft_print(room)
         else:
             rot_count += 1
     elif y+1 < col and direction == east:
         if room[x][y+1] == dirty:
-            room[x][y] = clean
+            if room[x][y] != clean:
+                room[x][y] = clean
+                ans += 1
             y += 1
-            ans += 1
             rot_count = 0
-            ft_print(room)
+            # ft_print(room)
         else:
             rot_count += 1
 print(ans)
