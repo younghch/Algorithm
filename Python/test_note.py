@@ -1,7 +1,3 @@
 import collections
 
-
-temp = [4, 5]
-a = temp
-a.pop()
-print(temp)
+print(-1 % 4)
