@@ -18,6 +18,7 @@ while ten <= ans // 10:
     ten *= 10
 count = 0
 
+
 def find_ten_power_down(d, c_len):
     made = 0
     while made < n:
