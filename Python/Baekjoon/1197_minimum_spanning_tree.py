@@ -6,36 +6,39 @@
 
 import sys
 
+
 v, e = map(int, sys.stdin.readline().split())
 graph = []
 for _ in range(e):
     a, b, c = map(int, sys.stdin.readline().split())
     graph.append((c, a, b))
+if v == 1:
+    print(0)
+else:
+    group = dict()
+    for i in range(v):
+        group[i + 1] = i + 1
 
-graph.sort()
-ans = graph[0][0]
-# list of sets
-segments = [set((graph[0][1], graph[0][2]))]
-for info in graph:
-    if len(segments[0]) == v:
-        break
-    c, a, b = info
-    is_new = True
-    is_bridge = -1
-    for idx, segment in enumerate(segments):
-        if a in segment and b in segment:
-            is_new = False
-            break
-        if a in segment or b in segment:
-            if is_bridge == -1:
-                is_bridge = idx
-                segment.update([a, b])
-            else:
-                segments[is_bridge].union(segment)
-                segments.pop(idx)
-                break
-    if is_new:
-        ans += c
-    else:
-        continue
-print(ans)
+
+    def find(x):
+        if group[x] == x:
+            return x
+        else:
+            return find(group[x])
+
+
+    def union(x, y):
+        x_root = find(x)
+        y_root = find(y)
+        if x_root > y_root:
+            x_root, y_root = y_root, x_root
+        group[y_root] = x_root
+
+
+    graph.sort()
+    ans = 0
+    for c, a, b in graph:
+        if find(a) != find(b):
+            union(a, b)
+            ans += c
+    print(ans)
