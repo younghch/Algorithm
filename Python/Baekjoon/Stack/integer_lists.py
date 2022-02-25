@@ -1,6 +1,10 @@
 import sys
 from collections import deque
 
+'''
+https://www.acmicpc.net/problem/5430
+'''
+
 input_ = sys.stdin.readline
 
 t = int(input_())
