@@ -1,14 +1,9 @@
 '''
 https://www.acmicpc.net/problem/2667
 '''
-
 import sys
 
 input_ = sys.stdin.readline
-
-n = int(input_())
-square = [list(input_().rstrip()) for _ in range(n)]
-complex_ = []
 
 def dfs_get_count(x, y):
     ds = (1, -1)
@@ -27,6 +22,10 @@ def dfs_get_count(x, y):
             if 0 <= c_y+d < n and square[c_x][c_y+d] == '1':
                 stack.append((c_x, c_y+d))
     return len(visited)
+
+n = int(input_())
+square = [list(input_().rstrip()) for _ in range(n)]
+complex_ = []
 
 for x in range(n):
     for y in range(n):
