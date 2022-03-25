@@ -2,9 +2,6 @@
 https://programmers.co.kr/learn/courses/30/lessons/92343
 '''
 from collections import defaultdict
-import sys
-
-sys.setrecursionlimit(10**9)
 
 def solution(info, edges):
     global max_num_of_sheep
