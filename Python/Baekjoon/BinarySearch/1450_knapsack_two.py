@@ -2,6 +2,7 @@
 https://www.acmicpc.net/problem/1450
 '''
 import sys
+# from bisect import bisect_right
 
 
 input_ = sys.stdin.readline
@@ -38,5 +39,7 @@ def binary_search(left, right, val):
 ans = 0
 for v in left_half:
     ans += binary_search(0, len(right_half)-1, v)
+    # ans += bisect_right(right_half, c-v)
+
 print(ans)
                         
