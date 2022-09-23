@@ -27,7 +27,7 @@ from collections import defaultdict
 def solution(n, paths, gates, summits):
     min_intensity = float('inf')
     min_summit = float('inf')
-    graph = defaultdict(dict)
+    graph = defaultdict(list)
 
     gates = set(gates)
     summits = set(summits)
