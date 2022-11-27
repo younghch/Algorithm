@@ -18,10 +18,10 @@ proguard/
 .navigation/
 captures/
 *.iml
-Kotlin/.idea/workspace.xml
-Kotlin/.idea/tasks.xml
-Kotlin/.idea/gradle.xml
-Kotlin/.idea/assetWizardSettings.xml
-Kotlin/.idea/dictionaries
-Kotlin/.idea/libraries
-Kotlin/.idea/caches
+**/.idea/workspace.xml
+**/.idea/tasks.xml
+**/.idea/gradle.xml
+**/.idea/assetWizardSettings.xml
+**/.idea/dictionaries
+**/.idea/libraries
+**/.idea/caches
