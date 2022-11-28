@@ -23,5 +23,20 @@ internal class TwoSumTest {
         Assertions.assertArrayEquals(intArrayOf(0, 1), solution.twoSum(intArrayOf(3, 3), 6))
     }
 
+    @Test
+    fun twoSumHash1() {
+        Assertions.assertArrayEquals(intArrayOf(0, 1), solution.twoSumHash(intArrayOf(2, 7, 11, 15), 9))
+    }
+
+    @Test
+    fun twoSumHash2() {
+        Assertions.assertArrayEquals(intArrayOf(1, 2), solution.twoSumHash(intArrayOf(3, 2, 4), 6))
+    }
+
+    @Test
+    fun twoSumHash3() {
+        Assertions.assertArrayEquals(intArrayOf(0, 1), solution.twoSumHash(intArrayOf(3, 3), 6))
+    }
+
 
 }

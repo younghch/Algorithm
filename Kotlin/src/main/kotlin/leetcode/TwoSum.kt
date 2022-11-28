@@ -20,5 +20,16 @@ class TwoSum {
         return intArrayOf(nums.indexOf(sortedNums[left]), nums.lastIndexOf(sortedNums[right]))
     }
 
- 
+    fun twoSumHash(nums: IntArray, target: Int): IntArray {
+        val map = mutableMapOf<Int, Int>()
+
+        for (i in nums.indices) {
+            val v = nums[i]
+            if (map.containsKey(target - v))
+                return intArrayOf(map.get(target - v)!!, i)
+            map.put(v, i)
+        }
+
+        return intArrayOf()
+    }
 }
