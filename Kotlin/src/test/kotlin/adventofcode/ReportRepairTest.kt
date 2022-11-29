@@ -20,6 +20,13 @@ internal class ReportRepairTest {
     }
 
     @Test
+    fun streamFromFile() {
+        val stream =
+            solution.getStreamFromFile("~/Algorithm/Kotlin/src/test/resources/adventofcode/day1.txt")
+        assertEquals("2008", stream.findFirst().get())
+    }
+
+    @Test
     fun getMultipleFromString() {
         val stream = solution.getStreamFromString(stringInput)
         assertEquals(1721 * 299, solution.getMultipleOfSum2020Pair(stream))

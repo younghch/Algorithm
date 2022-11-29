@@ -2,6 +2,7 @@
 package adventofcode
 
 import java.io.BufferedReader
+import java.io.File
 import java.io.InputStreamReader
 import java.util.stream.Stream
 
@@ -23,6 +24,10 @@ class ReportRepair {
         return list.stream()
     }
 
+    fun getStreamFromFile(path: String): Stream<String> {
+        return File(path).readLines().stream()
+    }
+
     fun getMultipleOfSum2020Pair(stream: Stream<String>): Int {
         val numCount = mutableSetOf<Int>()
         var ans = -1
@@ -35,5 +40,15 @@ class ReportRepair {
             }
         }
         return ans
+    }
+
+    fun guideSolution(stream: Stream<String>): Int {
+        val numbers = stream.map(String::toInt).toList()
+        val complements = numbers.associateBy { 2020 - it }
+        val pair = numbers.mapNotNull {
+            val complement = complements[it]
+            if (complement != null) Pair(it, complement) else null
+        }.firstOrNull()
+        return pair?.let { (a, b) -> a * b }!!
     }
 }
