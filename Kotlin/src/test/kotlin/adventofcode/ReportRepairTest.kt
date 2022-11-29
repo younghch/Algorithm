@@ -14,21 +14,27 @@ internal class ReportRepairTest {
             "1456"
 
     @Test
-    fun streamFromString() {
-        val stream = solution.getStreamFromString(stringInput)
-        assertArrayEquals(arrayOf("1721", "979", "366", "299", "675", "1456"), stream.toArray())
+    fun listFromString() {
+        val list = solution.getListFromString(stringInput)
+        assertArrayEquals(intArrayOf(1721, 979, 366, 299, 675, 1456), list.toIntArray())
     }
 
     @Test
-    fun streamFromFile() {
-        val stream =
-            solution.getStreamFromFile("~/Algorithm/Kotlin/src/test/resources/adventofcode/day1.txt")
-        assertEquals("2008", stream.findFirst().get())
+    fun listFromFile() {
+        val list =
+            solution.getListFromFile("/Users/choyounghoun/Algorithm/Kotlin/src/test/resources/adventofcode/day1.txt")
+        assertEquals(2008, list[0])
     }
 
     @Test
-    fun getMultipleFromString() {
-        val stream = solution.getStreamFromString(stringInput)
-        assertEquals(1721 * 299, solution.getMultipleOfSum2020Pair(stream))
+    fun getPairMultipleFromString() {
+        val list = solution.getListFromString(stringInput)
+        assertEquals(1721 * 299, solution.getMultipleOfSum2020Pair(list))
+    }
+
+    @Test
+    fun getTripleMultipleFromString() {
+        val list = solution.getListFromString(stringInput)
+        assertEquals(979 * 366 * 675, solution.getMultipleOfSum2020Triple(list))
     }
 }
