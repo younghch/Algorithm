@@ -1,7 +1,6 @@
 package adventofcode
 
-import org.junit.jupiter.api.Assertions.assertArrayEquals
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 internal class ReportRepairTest {
@@ -27,14 +26,29 @@ internal class ReportRepairTest {
     }
 
     @Test
-    fun getPairMultipleFromString() {
+    fun getMultipleFromSumPair() {
         val list = solution.getListFromString(stringInput)
         assertEquals(1721 * 299, solution.getMultipleOfSum2020Pair(list))
     }
 
     @Test
-    fun getTripleMultipleFromString() {
+    fun preventHalfCountedTwice() {
+        val list = listOf<Int>(1010, 1000, 1)
+        assertNull(solution.getMultipleOfSum2020Pair(list))
+    }
+
+    @Test
+    fun getMultipleFromSumTripler() {
         val list = solution.getListFromString(stringInput)
         assertEquals(979 * 366 * 675, solution.getMultipleOfSum2020Triple(list))
     }
+
+    @Test
+    fun preventOneThirdDuplicateCounted() {
+        val target = 9
+        val list = listOf<Int>(3, 3, 4)
+        val counter = solution.getCounter(list)
+        assertNull(solution.getTripleOfSum(list, counter, target))
+    }
+
 }

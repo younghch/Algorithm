@@ -5,6 +5,7 @@ import adventofcode.ReportRepair
 
 fun main() {
     val solution = ReportRepair()
-    val stream = solution.getStreamFromStdin()
-    print(solution.getMultipleOfSum2020Pair(stream))
+    val list = solution.getListFromStdin()
+    println(solution.getMultipleOfSum2020Pair(list))
+    println(solution.getMultipleOfSum2020Triple(list))
 }
