@@ -1,6 +1,5 @@
-package adventofcode
+package adventofcode.day1
 
-import adventofcode.day1.ReportRepair
 import adventofcode.util.InputUtil
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
