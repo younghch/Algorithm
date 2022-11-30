@@ -16,20 +16,23 @@ internal class Day1Test {
 
     @Test
     fun listFromString() {
-        val list = InputUtil.getIntListFromString(stringInput)
+        val list = InputUtil.getListFromString(stringInput, String::toInt)
         assertArrayEquals(intArrayOf(1721, 979, 366, 299, 675, 1456), list.toIntArray())
     }
 
     @Test
     fun listFromFile() {
         val list =
-            InputUtil.getIntListFromFile("/Users/choyounghoun/Algorithm/Kotlin/src/test/resources/adventofcode/day1.txt")
+            InputUtil.getListFromFile(
+                "/Users/choyounghoun/Algorithm/Kotlin/src/test/resources/adventofcode/day1.txt",
+                String::toInt
+            )
         assertEquals(2008, list[0])
     }
 
     @Test
     fun getMultipleFromSumPair() {
-        val list = InputUtil.getIntListFromString(stringInput)
+        val list = InputUtil.getListFromString(stringInput, String::toInt)
         assertEquals(1721 * 299, solution.getMultipleOfSum2020Pair(list))
     }
 
@@ -41,7 +44,7 @@ internal class Day1Test {
 
     @Test
     fun getMultipleFromSumTripler() {
-        val list = InputUtil.getIntListFromString(stringInput)
+        val list = InputUtil.getListFromString(stringInput, String::toInt)
         assertEquals(979 * 366 * 675, solution.getMultipleOfSum2020Triple(list))
     }
 

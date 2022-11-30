@@ -6,11 +6,8 @@ import java.io.InputStreamReader
 
 class InputUtil {
     companion object Functions {
-        fun getIntListFromString(s: String): List<Int> {
-            return s.split('\n').map(String::toInt)
-        }
 
-        fun getIntListFromStdin(): List<Int> {
+        fun <T> getListFromStdin(converter: (s: String) -> T): List<T> {
             val list = mutableListOf<String>()
             with(BufferedReader(InputStreamReader(System.`in`))) {
                 var line = this.readLine()
@@ -19,11 +16,15 @@ class InputUtil {
                     line = this.readLine()
                 }
             }
-            return list.map(String::toInt)
+            return list.map(converter)
         }
 
-        fun getIntListFromFile(path: String): List<Int> {
-            return File(path).readLines().map(String::toInt)
+        fun <T> getListFromString(s: String, converter: (s: String) -> T): List<T> {
+            return s.split('\n').map(converter)
+        }
+
+        fun <T> getListFromFile(path: String, converter: (s: String) -> T): List<T> {
+            return File(path).readLines().map(converter)
         }
     }
 
