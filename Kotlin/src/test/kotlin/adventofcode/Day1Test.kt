@@ -1,9 +1,11 @@
 package adventofcode
 
+import adventofcode.day1.ReportRepair
+import adventofcode.util.InputUtil
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-internal class ReportRepairTest {
+internal class Day1Test {
     val solution = ReportRepair()
     val stringInput = "1721\n" +
             "979\n" +
@@ -14,20 +16,20 @@ internal class ReportRepairTest {
 
     @Test
     fun listFromString() {
-        val list = solution.getListFromString(stringInput)
+        val list = InputUtil.getIntListFromString(stringInput)
         assertArrayEquals(intArrayOf(1721, 979, 366, 299, 675, 1456), list.toIntArray())
     }
 
     @Test
     fun listFromFile() {
         val list =
-            solution.getListFromFile("/Users/choyounghoun/Algorithm/Kotlin/src/test/resources/adventofcode/day1.txt")
+            InputUtil.getIntListFromFile("/Users/choyounghoun/Algorithm/Kotlin/src/test/resources/adventofcode/day1.txt")
         assertEquals(2008, list[0])
     }
 
     @Test
     fun getMultipleFromSumPair() {
-        val list = solution.getListFromString(stringInput)
+        val list = InputUtil.getIntListFromString(stringInput)
         assertEquals(1721 * 299, solution.getMultipleOfSum2020Pair(list))
     }
 
@@ -39,7 +41,7 @@ internal class ReportRepairTest {
 
     @Test
     fun getMultipleFromSumTripler() {
-        val list = solution.getListFromString(stringInput)
+        val list = InputUtil.getIntListFromString(stringInput)
         assertEquals(979 * 366 * 675, solution.getMultipleOfSum2020Triple(list))
     }
 

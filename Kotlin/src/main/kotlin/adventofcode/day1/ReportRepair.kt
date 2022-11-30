@@ -1,9 +1,5 @@
 // https://adventofcode.com/2020/day/1
-package adventofcode
-
-import java.io.BufferedReader
-import java.io.File
-import java.io.InputStreamReader
+package adventofcode.day1
 
 class ReportRepair {
 
@@ -64,27 +60,6 @@ class ReportRepair {
             copiedCounter[i] = copiedCounter[i]!! - 1
         }
         return true
-    }
-
-
-    fun getListFromString(s: String): List<Int> {
-        return s.split('\n').map(String::toInt)
-    }
-
-    fun getListFromStdin(): List<Int> {
-        val list = mutableListOf<String>()
-        with(BufferedReader(InputStreamReader(System.`in`))) {
-            var line = this.readLine()
-            while (line.isNotEmpty()) {
-                list.add(line)
-                line = this.readLine()
-            }
-        }
-        return list.map(String::toInt)
-    }
-
-    fun getListFromFile(path: String): List<Int> {
-        return File(path).readLines().map(String::toInt)
     }
 
     fun guideSolution(list: List<String>): Int {
