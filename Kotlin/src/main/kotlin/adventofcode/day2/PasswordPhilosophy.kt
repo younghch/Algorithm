@@ -10,11 +10,13 @@ import java.lang.Error
 
 class PasswordPhilosophy {
     var policyPasswordPairs = listOf<PolicyPasswordPair>()
-    val numOfValid: Int
-        get() = calculateNumOfValid()
+    val numOfValidCondition1: Int
+        get() = calculateNumOfValidCondition1()
+    val numOfValidCondition2: Int
+        get() = calculateNumOfValidCondition2()
 
 
-    fun calculateNumOfValid(): Int {
+    fun calculateNumOfValidCondition1(): Int {
         var numOfValid = 0
         policyPasswordPairs.forEach {
             val (lower, upper, toCount) = it.policy
@@ -23,6 +25,19 @@ class PasswordPhilosophy {
                 if (it == toCount) found++
             }
             if (found in lower..upper)
+                numOfValid++
+        }
+        return numOfValid
+    }
+
+    fun calculateNumOfValidCondition2(): Int {
+        var numOfValid = 0
+        policyPasswordPairs.forEach {
+            val (first, second, toFind) = it.policy
+            if ((it.password.get(first - 1) == toFind && it.password.get(second - 1) != toFind) || (it.password.get(
+                    first - 1
+                ) != toFind && it.password.get(second - 1) == toFind)
+            )
                 numOfValid++
         }
         return numOfValid

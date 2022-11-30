@@ -24,10 +24,17 @@ internal class PasswordPhilosophyTest {
     }
 
     @Test
-    fun countValidFromString() {
+    fun countValidFromStringCondition1() {
         val policyPasswordPairs = InputUtil.getListFromString(s, PasswordPhilosophy::policyPasswordPairConverter)
         solution.policyPasswordPairs = policyPasswordPairs
-        Assertions.assertThat(solution.numOfValid).isEqualTo(2)
+        Assertions.assertThat(solution.numOfValidCondition1).isEqualTo(2)
+    }
+
+    @Test
+    fun countValidFromStringCondition2() {
+        val policyPasswordPairs = InputUtil.getListFromString(s, PasswordPhilosophy::policyPasswordPairConverter)
+        solution.policyPasswordPairs = policyPasswordPairs
+        Assertions.assertThat(solution.numOfValidCondition2).isEqualTo(1)
     }
 
 
