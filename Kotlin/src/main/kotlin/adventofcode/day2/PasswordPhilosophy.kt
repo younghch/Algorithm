@@ -34,21 +34,25 @@ class PasswordPhilosophy {
         var numOfValid = 0
         policyPasswordPairs.forEach {
             val (first, second, toFind) = it.policy
-            if ((it.password.get(first - 1) == toFind && it.password.get(second - 1) != toFind) || (it.password.get(
-                    first - 1
-                ) != toFind && it.password.get(second - 1) == toFind)
-            )
+            if ((it.password.get(first - 1) == toFind) xor (it.password.get(second - 1) == toFind))
                 numOfValid++
         }
         return numOfValid
     }
 
     companion object Helper {
-        fun policyPasswordPairConverter(s: String): PolicyPasswordPair {
-            val regex = "[-:\\s]+"
-            with(s.split(regex.toRegex())) {
+        fun policyPasswordPairConverter(line: String): PolicyPasswordPair {
+            val regex = """[-:\s]+"""
+            with(line.split(regex.toRegex())) {
                 if (size != 4) throw Error("Invalid input")
                 return PolicyPasswordPair(Triple(get(0).toInt(), get(1).toInt(), get(2)[0]), get(3))
+            }
+        }
+
+        fun guidePolicyPasswordPairConverter(line: String): PolicyPasswordPair {
+            val regex = Regex("""(\d+)-(\d+) ([a-z]+): ([a-z]+)""")
+            return regex.matchEntire(line)!!.destructured.let { (start, end, letter, password) ->
+                PolicyPasswordPair(Triple(start.toInt(), end.toInt(), letter.single()), password)
             }
         }
     }

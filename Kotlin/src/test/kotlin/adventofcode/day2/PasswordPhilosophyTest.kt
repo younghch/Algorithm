@@ -37,5 +37,12 @@ internal class PasswordPhilosophyTest {
         Assertions.assertThat(solution.numOfValidCondition2).isEqualTo(1)
     }
 
+    @Test
+    fun guideAnswerCountValidFromStringCondition1() {
+        val policyPasswordPairs = InputUtil.getListFromString(s, PasswordPhilosophy::guidePolicyPasswordPairConverter)
+        solution.policyPasswordPairs = policyPasswordPairs
+        Assertions.assertThat(solution.numOfValidCondition1).isEqualTo(2)
+    }
+
 
 }
