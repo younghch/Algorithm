@@ -8,10 +8,10 @@ class TobogganTrajectory {
             }
         }
 
-        fun countTreeOnMove(grids: List<List<Grid>>, right: Int, down: Int): Int {
+        fun countTreeOnMove(grids: List<List<Grid>>, right: Int, down: Int): Long {
             val depth = grids.size
             val repeatSize = grids[0].size
-            var encounteredTrees = 0
+            var encounteredTrees = 0L
             val coordinate = Coordinate()
 
             while (coordinate.y < depth) {
@@ -21,6 +21,18 @@ class TobogganTrajectory {
                 coordinate.moveX(right)
             }
             return encounteredTrees
+        }
+
+        fun getMultipleOfCount(grids: List<List<Grid>>, slopes: List<Pair<Int, Int>>): Long {
+            if (grids.isEmpty()) return 0
+            else {
+                var mul = 1L
+                slopes.forEach { (right, down) ->
+                    mul *= countTreeOnMove(grids, right, down)
+                }
+                return mul
+            }
+
         }
     }
 }
