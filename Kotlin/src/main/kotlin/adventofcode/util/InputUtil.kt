@@ -9,9 +9,12 @@ class InputUtil {
 
         fun <T> getListFromStdin(converter: (s: String) -> T): List<T> {
             val list = mutableListOf<String>()
+
             with(BufferedReader(InputStreamReader(System.`in`))) {
                 var line = this.readLine()
-                while (line.isNotEmpty()) {
+                var wasEmpty = false
+                while (!wasEmpty || line.isNotEmpty()) {
+                    wasEmpty = line.isEmpty()
                     list.add(line)
                     line = this.readLine()
                 }
