@@ -87,7 +87,6 @@ internal class PassportProcessingTest {
             put("ecl", "brn")
             put("pid", "760753108")
             put("byr", "1931")
-            put("hgt", "179cm")
         }
 
         Assertions.assertThat(PassportProcessing.checkPassportValid(invalid)).isEqualTo(false)

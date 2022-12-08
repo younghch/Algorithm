@@ -3,16 +3,11 @@ package adventofcode.day4
 class PassportProcessing {
     companion object {
         fun checkPassportValid(passport: Map<String, String>): Boolean {
-            for ((key, value) in passport) {
-                try {
-                    Passport.valueOf(key)
-                    println(key)
-                } catch (e: IllegalArgumentException) {
-                    println("=============sth wrong=============")
-                    println(key)
-                    if (key == "cid") continue
-                    return false
-                }
+
+            for (enum in enumValues<Passport>()) {
+                val key = enum.name
+                if (key == "cid") continue
+                if (passport[key] == null) return false
             }
             return true
         }
