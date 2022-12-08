@@ -6,7 +6,10 @@ class PassportProcessing {
             for ((key, value) in passport) {
                 try {
                     Passport.valueOf(key)
+                    println(key)
                 } catch (e: IllegalArgumentException) {
+                    println("=============sth wrong=============")
+                    println(key)
                     if (key == "cid") continue
                     return false
                 }

@@ -62,23 +62,52 @@ internal class PassportProcessingTest {
 
     @Test
     fun passportValid() {
-        val passport = listOf<String>()
-        """
-            ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
-            byr:1937 iyr:2017 cid:147 hgt:183cm
-        """.trimIndent()
-        val invalid = """
-            iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884
-            hcl:#cfa07d byr:1929
-        """.trimIndent()
-        val northPole = """
-            hcl:#ae17e1 iyr:2013
-            eyr:2024
-            ecl:brn pid:760753108 byr:1931
-            hgt:179cm
-        """.trimIndent()
+        val passport = mutableMapOf<String, String>()
+        with(passport) {
+            put("ecl", "gry")
+            put("pid", "860033327")
+            put("eyr", "2020")
+            put("hcl", "#fffffd")
+            put("byr", "1937")
+            put("iyr", "2017")
+            put("cid", "147")
+            put("hgt", "183cm")
+        }
 
-        TODO()
+        Assertions.assertThat(PassportProcessing.checkPassportValid(passport)).isEqualTo(true)
+    }
+
+    @Test
+    fun passportInvalid() {
+        val invalid = mutableMapOf<String, String>()
+        with(invalid) {
+            put("hcl", "#ae17e1")
+            put("iyr", "2013")
+            put("eyr", "2024")
+            put("ecl", "brn")
+            put("pid", "760753108")
+            put("byr", "1931")
+            put("hgt", "179cm")
+        }
+
+        Assertions.assertThat(PassportProcessing.checkPassportValid(invalid)).isEqualTo(false)
+
+    }
+
+    @Test
+    fun northPoleValid() {
+        val passport = mutableMapOf<String, String>()
+        with(passport) {
+            put("hcl", "#ae17e1")
+            put("iyr", "2013")
+            put("eyr", "2024")
+            put("ecl", "brn")
+            put("pid", "760753108")
+            put("byr", "1931")
+            put("hgt", "179cm")
+        }
+
+        Assertions.assertThat(PassportProcessing.checkPassportValid(passport)).isEqualTo(true)
     }
 
     @Test
