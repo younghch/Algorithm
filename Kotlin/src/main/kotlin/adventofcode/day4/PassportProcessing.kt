@@ -2,12 +2,15 @@ package adventofcode.day4
 
 class PassportProcessing {
     companion object {
-        fun checkPassportValid(passport: Map<String, String>): Boolean {
+        fun checkPassportValid(passport: Map<String, String>, part: Char): Boolean {
 
             for (enum in enumValues<Passport>()) {
                 val key = enum.name
                 if (key == "cid") continue
                 if (passport[key] == null) return false
+                if (part == '2') {
+                    return enum.isValid(passport[key]!!)
+                }
             }
             return true
         }
@@ -19,13 +22,13 @@ class PassportProcessing {
             }
         }
 
-        fun countNumOfValid(lines: List<String>): Int {
+        fun countNumOfValid(lines: List<String>, part: Char): Int {
             var numOfValid = 0
             var passport = mutableMapOf<String, String>()
 
             lines.forEach {
                 if (it.isEmpty()) {
-                    if (checkPassportValid(passport)) numOfValid += 1
+                    if (checkPassportValid(passport, part)) numOfValid += 1
                     passport = mutableMapOf()
                 } else {
                     putLineInfoToPassport(it, passport)

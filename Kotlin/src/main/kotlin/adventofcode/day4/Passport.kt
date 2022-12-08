@@ -4,7 +4,7 @@ enum class Passport() {
     byr {
         override fun isValid(s: String): Boolean {
             val rule = Regex("(19[2-9][0-9])|(200[0-2])")
-            return rule.matchEntire(s) != null
+            return rule.matches(s)
         }
     },
     iyr {
