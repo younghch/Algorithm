@@ -5,17 +5,6 @@ import org.junit.jupiter.api.Test
 import kotlin.random.Random.Default.nextInt
 
 
-//byr (Birth Year) - four digits; at least 1920 and at most 2002.
-//iyr (Issue Year) - four digits; at least 2010 and at most 2020.
-//eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
-//hgt (Height) - a number followed by either cm or in:
-//If cm, the number must be at least 150 and at most 193.
-//If in, the number must be at least 59 and at most 76.
-//hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
-//ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
-//pid (Passport ID) - a nine-digit number, including leading zeroes.
-//cid (Country ID) - ignored, missing or not.
-
 internal class PassportTest {
 
     @Test
@@ -44,5 +33,58 @@ internal class PassportTest {
         Assertions.assertThat(Passport.byr.isValid("")).isFalse
         Assertions.assertThat(Passport.byr.isValid("19501")).isFalse
     }
+
+    @Test
+    fun hgtLower() {
+        Assertions.assertThat(Passport.hgt.isValid("149cm")).isFalse
+        Assertions.assertThat(Passport.hgt.isValid("150cm")).isTrue
+
+        Assertions.assertThat(Passport.hgt.isValid("58in")).isFalse
+        Assertions.assertThat(Passport.hgt.isValid("59in")).isTrue
+
+    }
+
+    @Test
+    fun hgtCm() {
+        for (i in 0..100)
+            Assertions.assertThat(Passport.hgt.isValid(nextInt(150, 193).toString() + "cm")).isTrue
+    }
+
+    @Test
+    fun hgtIn() {
+        for (i in 0..100)
+            Assertions.assertThat(Passport.hgt.isValid(nextInt(150, 193).toString() + "cm")).isTrue
+    }
+
+    @Test
+    fun hgtUpper() {
+        Assertions.assertThat(Passport.hgt.isValid("193cm")).isTrue
+        Assertions.assertThat(Passport.hgt.isValid("194cm")).isFalse
+
+        Assertions.assertThat(Passport.hgt.isValid("76in")).isTrue
+        Assertions.assertThat(Passport.hgt.isValid("77in")).isFalse
+
+    }
+
+    @Test
+    fun hcl() {
+        Assertions.assertThat(Passport.hcl.isValid("#123abc")).isTrue
+        Assertions.assertThat(Passport.hcl.isValid("#123abz")).isFalse
+        Assertions.assertThat(Passport.hcl.isValid("#123bc")).isFalse
+    }
+
+    @Test
+    fun ecl() {
+        Assertions.assertThat(Passport.ecl.isValid("brn")).isTrue
+        Assertions.assertThat(Passport.ecl.isValid("blue")).isFalse
+    }
+
+    @Test
+    fun pid() {
+        Assertions.assertThat(Passport.pid.isValid("000000001")).isTrue
+        Assertions.assertThat(Passport.pid.isValid("0000000012")).isFalse
+        Assertions.assertThat(Passport.pid.isValid("000012")).isFalse
+    }
+
 
 }
