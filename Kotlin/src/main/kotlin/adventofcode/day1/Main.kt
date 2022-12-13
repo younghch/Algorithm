@@ -1,6 +1,5 @@
-package adventofcode.runner
+package adventofcode.day1
 
-import adventofcode.day1.ReportRepair
 import adventofcode.util.InputUtil
 
 
