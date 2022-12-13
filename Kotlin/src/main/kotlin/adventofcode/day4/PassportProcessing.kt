@@ -8,9 +8,7 @@ class PassportProcessing {
                 val key = enum.name
                 if (key == "cid") continue
                 if (passport[key] == null) return false
-                if (part == '2') {
-                    return enum.isValid(passport[key]!!)
-                }
+                if (part == '2' && !enum.isValid(passport[key]!!)) return false
             }
             return true
         }
