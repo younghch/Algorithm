@@ -10,4 +10,6 @@ fun main(args: Array<String>) {
         solution.push(line)
     }
     println(solution.findPossibleParents("shiny gold").count())
+    println(solution.getNumberOfDescendant("shiny gold"))
+    
 }
