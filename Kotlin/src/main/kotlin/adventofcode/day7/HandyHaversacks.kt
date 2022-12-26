@@ -2,8 +2,8 @@ package adventofcode.day7
 
 class HandyHaversacks {
 
-    val childToParents = mutableMapOf<String, MutableList<Pair<String, Int>>>()
-    val parentToChildren = mutableMapOf<String, List<Pair<String, Int>>>()
+    private val childToParents = mutableMapOf<String, List<Pair<String, Int>>>()
+    private val parentToChildren = mutableMapOf<String, List<Pair<String, Int>>>()
     fun push(line: String) {
         val parentToChildrenLine = getParentToChildrenWithCount(line)
         val parent = parentToChildrenLine.first
@@ -13,10 +13,9 @@ class HandyHaversacks {
 
 
         for (child in children) {
-            if (childToParents.containsKey(child.first)) {
-                childToParents.get(child.first)!!.add(Pair(parent, child.second))
-            } else {
-                childToParents.put(child.first, mutableListOf(Pair(parent, child.second)))
+            childToParents.compute(child.first) { _, value ->
+                if (value == null) mutableListOf(Pair(parent, child.second))
+                else value + Pair(parent, child.second)
             }
         }
     }
