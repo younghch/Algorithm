@@ -19,7 +19,7 @@ internal class HandyHaversacksTest {
         val pair = HandyHaversacks.lineToEmptyBagPair(line)
 
         Assertions.assertThat(pair.first).isEqualTo("dotted black")
-        Assertions.assertThat(pair.second).isNull()
+        Assertions.assertThat(pair.second).isEmpty()
     }
 
     @Test
@@ -29,12 +29,12 @@ internal class HandyHaversacksTest {
 
         val pair1 = HandyHaversacks.lineToParentChildrenPair(line1)
         Assertions.assertThat(pair1.first).isEqualTo("vibrant plum")
-        Assertions.assertThat(pair1.second!!.get(0)).isEqualTo(Pair("faded blue", 5))
-        Assertions.assertThat(pair1.second!!.get(1)).isEqualTo(Pair("dotted black", 6))
+        Assertions.assertThat(pair1.second.get(0)).isEqualTo(Pair("faded blue", 5))
+        Assertions.assertThat(pair1.second.get(1)).isEqualTo(Pair("dotted black", 6))
 
         val pair2 = HandyHaversacks.lineToParentChildrenPair(line2)
         Assertions.assertThat(pair2.first).isEqualTo("bright white")
-        Assertions.assertThat(pair2.second!!.get(0)).isEqualTo(Pair("shiny gold", 1))
+        Assertions.assertThat(pair2.second.get(0)).isEqualTo(Pair("shiny gold", 1))
 
     }
 }
