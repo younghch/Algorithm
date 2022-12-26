@@ -27,7 +27,7 @@ class InputUtil {
         }
 
         fun <T> getListFromFile(path: String, converter: (s: String) -> T): List<T> {
-            return File(path).readLines().map(converter)
+            return File(path).readText().split('\n').map(converter)
         }
     }
 
