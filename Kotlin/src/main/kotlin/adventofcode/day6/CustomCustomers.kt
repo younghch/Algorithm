@@ -2,18 +2,25 @@ package adventofcode.day6
 
 class CustomCustomers {
     companion object {
-        fun collectAnswerByGroup(answers: List<String>): List<Set<Char>> {
+        fun collectAnswerByGroup(answers: List<String>, part: Int = 1): List<Set<Char>> {
             val groupAnsList = mutableListOf<Set<Char>>()
-            var groupAns = setOf<Char>()
+            var groupAns: Set<Char>? = null
             for (ans in answers) {
                 if (ans.isEmpty()) {
-                    groupAnsList.add(groupAns)
-                    groupAns = setOf()
+                    groupAnsList.add(groupAns!!)
+                    groupAns = null
                 } else {
-                    groupAns = groupAns.union(ans.toSet())
+                    groupAns =
+                        if (groupAns == null)
+                            ans.toSet()
+                        else if (part == 1)
+                            groupAns.union(ans.toSet())
+                        else
+                            groupAns.intersect(ans.toSet())
                 }
             }
-            groupAnsList.add(groupAns)
+            if (groupAns != null)
+                groupAnsList.add(groupAns)
             return groupAnsList
         }
 
@@ -21,8 +28,8 @@ class CustomCustomers {
             return groupAnsList.map { it.size }.reduce { acc, ansCount -> acc + ansCount }
         }
 
-        fun getAns1(input: List<String>): Int {
-            return getTotalAnsCount(collectAnswerByGroup(input))
+        fun getAns(input: List<String>, part: Int = 1): Int {
+            return getTotalAnsCount(collectAnswerByGroup(input, part))
         }
     }
 }
