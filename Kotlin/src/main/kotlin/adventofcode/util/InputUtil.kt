@@ -12,9 +12,7 @@ class InputUtil {
 
             with(BufferedReader(InputStreamReader(System.`in`))) {
                 var line = this.readLine()
-                var wasEmpty = false
-                while (!wasEmpty || line.isNotEmpty()) {
-                    wasEmpty = line.isEmpty()
+                while (line != "end") {
                     list.add(line)
                     line = this.readLine()
                 }
