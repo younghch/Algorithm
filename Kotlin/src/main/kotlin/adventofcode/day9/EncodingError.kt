@@ -25,7 +25,7 @@ class EncodingError {
             var window = 1
             var sum = numbers[start] + numbers[start + window]
 
-            while (sum != target && start < numbers.size - 2) {
+            while (sum != target && start < numbers.size - 1) {
                 if (sum + numbers[window + 1] < target) {
                     window++
                     sum += numbers[start + window]
