@@ -19,5 +19,23 @@ class EncodingError {
             }
             return -1
         }
+
+        fun findContiguousList(numbers: List<Long>, target: Long): List<Long> {
+            var start = 0
+            var window = 1
+            var sum = numbers[start] + numbers[start + window]
+
+            while (sum != target && start < numbers.size - 2) {
+                if (sum + numbers[window + 1] < target) {
+                    window++
+                    sum += numbers[start + window]
+                } else {
+                    sum -= numbers[start]
+                    start += 1
+                    window--
+                }
+            }
+            return numbers.subList(start, start + window + 1)
+        }
     }
 }
