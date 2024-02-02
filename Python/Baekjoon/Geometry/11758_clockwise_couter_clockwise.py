@@ -1,32 +1,26 @@
 # https://www.acmicpc.net/problem/11758
 
 import sys
-import math
 
-class Point:
-    def __init__(self, line: str):
-        self.x, self.y = map(int, line.split())
-
+class Vector:
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+    
 def main():
     input_ = sys.stdin.readline
-    points = [Point(input_()) for _ in range(3)]
+    points = [Vector(*map(int, input_().split())) for _ in range(3)]
     print(clockwise_or_counter_clockwise(points[0], points[1], points[2]))
 
-
-def slope(p1:Point, p2:Point):
-    return (p1.y-p2.y)/(p1.x-p2.x)
-
-def distance_from_linear_function(p1:Point, p2:Point, p3:Point):
-    return p3.y-(slope(p1, p2)*(p3.x-p1.x)+p1.y)
-
-def clockwise_or_counter_clockwise(p1:Point, p2:Point, p3:Point):
-    direction = None
-    if (p1.x == p2.x == p3.x or p1.y == p2.y == p3.y):
-        direction = 0
-    elif (p1.x == p2.x):
-        direction = (p2.y-p1.y)*(p1.x-p3.x)
-    else:
-        direction = distance_from_linear_function(p1, p2, p3)*(p2.x-p1.x)
+def clockwise_or_counter_clockwise(v1:Vector, v2:Vector, v3:Vector):
+    v_first = minus_vector(v1, v2)
+    v_second = minus_vector(v2, v3)
+    direction = cross_product(v_first, v_second)
     return 0 if direction == 0 else 1 if direction > 0 else -1
+
+def cross_product(v1:Vector, v2:Vector):
+    return v1.x*v2.y-v2.x*v1.y
+
+def minus_vector(v1: Vector, v2:Vector):
+    return Vector(v1.x-v2.x, v1.y-v2.y)
 
 main()
