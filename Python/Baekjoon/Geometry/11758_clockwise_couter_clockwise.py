@@ -5,6 +5,12 @@ import sys
 class Vector:
     def __init__(self, x, y):
         self.x, self.y = x, y
+
+    def __sub__(self, other):
+        return Vector(self.x-other.x, self.y-other.y)
+    
+    def cross_product(self, other):
+        return self.x*other.y-other.x*self.y
     
 def main():
     input_ = sys.stdin.readline
@@ -12,15 +18,7 @@ def main():
     print(clockwise_or_counter_clockwise(points[0], points[1], points[2]))
 
 def clockwise_or_counter_clockwise(v1:Vector, v2:Vector, v3:Vector):
-    v_first = minus_vector(v1, v2)
-    v_second = minus_vector(v2, v3)
-    direction = cross_product(v_first, v_second)
+    direction = (v2-v1).cross_product(v3-v2)
     return 0 if direction == 0 else 1 if direction > 0 else -1
-
-def cross_product(v1:Vector, v2:Vector):
-    return v1.x*v2.y-v2.x*v1.y
-
-def minus_vector(v1: Vector, v2:Vector):
-    return Vector(v1.x-v2.x, v1.y-v2.y)
 
 main()
