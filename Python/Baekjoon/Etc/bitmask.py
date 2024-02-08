@@ -2,47 +2,33 @@
 
 import sys
 
-class Set:
-
-    def __init__(self):
-        self.current = 0
-        self.power_two = [0, *map(lambda x: 2**x, range(21))]
-    
-    def add(self, x):
-        self.current = self.current | self.power_two[x]
-    
-    def remove(self, x):
-        self.current = self.current & ~self.power_two[x]
-    
-    def check(self, x):
-        return (self.current & self.power_two[x]) >> x-1
-    
-    def toggle(self, x):
-        self.current = self.current ^ self.power_two[x]
-    
-    def all(self):
-        self.current = self.power_two[21]-1
-    
-    def empty(self):
-        self.current = 0
-
 def main():
     input_ = sys.stdin.readline
     n = int(input_())
-
-    set_ = Set()
+    current = 0
     for _ in range(n):
         commands = input_().split()
         operation = commands[0]
-        if len(commands) == 1:
-            getattr(set_, operation)()
+        if len(commands) ==1:
+            match operation:
+                    case 'all':
+                        current = (1<<21)-1
+                    case 'empty':
+                        current = 0
         else:
             x = int(commands[1])
-            if operation == 'check':
-                print(set_.check(x))
-            else:
-                getattr(set_, operation)(x)
-
-            
+            match operation:
+                case 'add':
+                    current |= 1<<x
+                case 'remove':
+                    current &= ~(1<<x)
+                case 'check':
+                    if current & (1<<x) == 0:
+                        print(0)
+                    else:
+                        print(1)
+                case 'toggle':
+                    current ^= 1<<x
+                        
 if __name__ == '__main__':
     main()
