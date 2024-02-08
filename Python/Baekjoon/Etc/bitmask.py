@@ -16,19 +16,19 @@ def main():
                     case 'empty':
                         current = 0
         else:
-            x = int(commands[1])
+            mask = 1<<int(commands[1])
             match operation:
                 case 'add':
-                    current |= 1<<x
+                    current |= mask
                 case 'remove':
-                    current &= ~(1<<x)
+                    current &= ~mask
                 case 'check':
-                    if current & (1<<x) == 0:
+                    if current & mask == 0:
                         print(0)
                     else:
                         print(1)
                 case 'toggle':
-                    current ^= 1<<x
+                    current ^= mask
                         
 if __name__ == '__main__':
     main()
