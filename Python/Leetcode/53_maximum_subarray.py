@@ -1,4 +1,4 @@
-# https://leetcode.com/problems/maximum-subarray/description/?envType=study-plan-v2&envId=top-interview-150
+# https://leetcode.com/problems/maximum-subarray
 from typing import List
 
 class Solution:
