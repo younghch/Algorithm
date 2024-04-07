@@ -16,10 +16,10 @@ def calculate_list_len_prefix_equals_suffix(word: str):
                 ps_equals.append(cand+1)
                 break
             else:
-                cand = ps_equals[cand-1]
                 if cand == 0:
                     ps_equals.append(0)
                     break
+                cand = ps_equals[cand-1]
     return ps_equals
 
 def kmp(sentence: str, word: str):
