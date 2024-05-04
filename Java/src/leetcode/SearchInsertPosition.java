@@ -1,5 +1,8 @@
 package leetcode;
 
+import java.util.Arrays;
+
+// https://leetcode.com/problems/search-insert-position/
 class SearchInsertPosition {
     public int searchInsert(int[] nums, int target) {
         int start = 0;
@@ -9,7 +12,7 @@ class SearchInsertPosition {
             int cur = (start + end) / 2;
             int toCompare = nums[cur];
             if (toCompare == target) return cur;
-            else if (toCompare < target) start = cur+1;
+            else if (toCompare < target) start = cur + 1;
             else end = cur;
         }
         return start;
