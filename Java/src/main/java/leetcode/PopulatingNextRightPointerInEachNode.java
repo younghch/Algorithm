@@ -5,23 +5,48 @@ import java.util.Queue;
 
 public class PopulatingNextRightPointerInEachNode {
 
-    public Node connectRecursive(Node root) {
+    public NodeWithNext connect(NodeWithNext root) {
+        NodeWithNext dummyNode = new NodeWithNext(0);
+        NodeWithNext curLayerNode = root;
+        NodeWithNext nextLayerNode = dummyNode;
+
+        while (curLayerNode != null) {
+            if (curLayerNode.left != null) {
+                nextLayerNode.next = curLayerNode.left;
+                nextLayerNode = nextLayerNode.next;
+            }
+            if (curLayerNode.right != null) {
+                nextLayerNode.next = curLayerNode.right;
+                nextLayerNode = nextLayerNode.next;
+            }
+            curLayerNode = curLayerNode.next;
+            if (curLayerNode == null) {
+                curLayerNode = dummyNode.next;
+                nextLayerNode = dummyNode;
+                dummyNode.next = null;
+            }
+
+        }
+        return root;
+    }
+
+    public NodeWithNext connectRecursive(NodeWithNext root) {
         if (root == null) return null;
-        Node leftMost = root;
+        NodeWithNext leftMost = root;
         while (leftMost != null) {
             leftMost = populateUpdateReturnLeftMost(leftMost);
         }
         return root;
     }
 
-    Node populateUpdateReturnLeftMost(Node currentParentNode) {
+    NodeWithNext populateUpdateReturnLeftMost(NodeWithNext currentParentNode) {
         if (currentParentNode == null) return null;
-        Node nextParentNode = getNextNodeWithChild(currentParentNode.next);
-        Node leftChild = currentParentNode.left;
-        Node rightChild = currentParentNode.right;
-        Node leftMostChild = leftChild == null ? rightChild : leftChild;
+        NodeWithNext nextParentNode = getNextNodeWithChild(currentParentNode.next);
+        NodeWithNext leftChild = currentParentNode.left;
+        NodeWithNext rightChild = currentParentNode.right;
+        NodeWithNext leftMostChild = leftChild == null ? rightChild : leftChild;
 
-        Node childToUpdateNext = null;
+        NodeWithNext childToUpdateNext = null;
 
         if (rightChild != null) {
             if (leftChild != null) leftChild.next = rightChild;
@@ -41,7 +66,7 @@ public class PopulatingNextRightPointerInEachNode {
         }
     }
 
-    Node getNextNodeWithChild(Node node) {
+    NodeWithNext getNextNodeWithChild(NodeWithNext node) {
         while (node != null) {
             if (node.left != null || node.right != null) return node;
             node = node.next;
@@ -49,42 +74,42 @@ public class PopulatingNextRightPointerInEachNode {
         return null;
     }
 
-    public Node connectWithLinkedList(Node root) {
+    public NodeWithNext connectWithLinkedList(NodeWithNext root) {
         if (root == null) return null;
-        Queue<Node> toVisits = new LinkedList<>();
-        Queue<Node> toUpdateNexts = new LinkedList<>();
+        Queue<NodeWithNext> toVisits = new LinkedList<>();
+        Queue<NodeWithNext> toUpdateNexts = new LinkedList<>();
         toVisits.add(root);
         while (!toVisits.isEmpty()) {
-            for (Node toVisit: toVisits) {
+            for (NodeWithNext toVisit: toVisits) {
                 if (toVisit.left != null) toUpdateNexts.add(toVisit.left);
                 if (toVisit.right != null) toUpdateNexts.add(toVisit.right);
             }
-            final Node[] toUpdateNext = {toUpdateNexts.peek()};
+            final NodeWithNext[] toUpdateNext = {toUpdateNexts.peek()};
             toUpdateNexts.stream().skip(1).forEach(rightNode -> {
                 toUpdateNext[0].next = rightNode;
                 toUpdateNext[0] = rightNode;
             });
             toVisits.clear();
-            Queue<Node> empty = toVisits;
+            Queue<NodeWithNext> empty = toVisits;
             toVisits = toUpdateNexts;
             toUpdateNexts = empty;
         }
         return root;
     }
 }
-class Node {
+class NodeWithNext {
     public int val;
-    public Node left;
-    public Node right;
-    public Node next;
+    public NodeWithNext left;
+    public NodeWithNext right;
+    public NodeWithNext next;
 
-    public Node() {}
+    public NodeWithNext() {}
 
-    public Node(int _val) {
+    public NodeWithNext(int _val) {
         val = _val;
     }
 
-    public Node(int _val, Node _left, Node _right, Node _next) {
+    public NodeWithNext(int _val, NodeWithNext _left, NodeWithNext _right, NodeWithNext _next) {
         val = _val;
         left = _left;
         right = _right;
