@@ -1,4 +1,4 @@
-package devine_conquer;
+package divine_and_conquer;
 
 import java.util.Scanner;
 
