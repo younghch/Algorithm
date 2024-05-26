@@ -8,6 +8,28 @@ class TreeNode:
         self.right = right
 
 class Solution:
+    def deleteNodeRecurssive(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+        if not root:
+            return None
+        if root.val > key:
+            root.left = self.deleteNodeRecurssive(root.left, key)
+        elif root.val < key:
+            root.right = self.deleteNodeRecurssive(root.right, key)
+        else:
+            if root.left and root.right:                
+                right_minimum = root.right                
+                while right_minimum.left:
+                    right_minimum = right_minimum.left
+                root.val = right_minimum.val
+                root.right = self.deleteNode(root.right, right_minimum.val)            
+            elif root.left:
+                root = root.left
+            elif root.right:
+                root = root.right
+            else:
+                root = None
+        return root
+
     def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
         cur = root
         parent = None
